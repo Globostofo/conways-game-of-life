@@ -1,23 +1,25 @@
-import pygame
+from typing import List
+import pygame as pg
 
 class Cell:
 
-    colors = [pygame.Color("white"),
-              pygame.Color("black")]
+    colors: List[pg.Color] = [pg.Color("white"),
+                              pg.Color("black")]
 
     def __init__(self, row:int, col:int, size:int, padding:int) -> None:
         self.__alive = False
         self.neighbors = []
 
-        self.CELL_RECT = pygame.Rect(col*size+padding, row*size+padding, size-2*padding, size-2*padding)
+        self.CELL_RECT = pg.Rect(col*size+padding, row*size+padding,
+                                 size-2*padding, size-2*padding)
         # TODO: upgrade change state system
         self.__FUNC = [self.__die, self.__born]
     
     def is_alive(self) -> bool:
         return self.__alive
     
-    def __get_color(self) -> pygame.Color:
-        return Cell.colors[self.is_alive]
+    def __get_color(self) -> pg.Color:
+        return Cell.colors[self.is_alive()]
 
     def __born(self) -> None:
         self.__alive = True
@@ -38,6 +40,6 @@ class Cell:
     def set_state(self, state: bool) -> None:
         self.__FUNC[state]()
 
-    def draw(self, window: pygame.Surface) -> None:
-        pygame.draw.rect(window, self.__get_color, self.CELL_RECT)
+    def draw(self, window: pg.Surface) -> None:
+        pg.draw.rect(window, self.__get_color(), self.CELL_RECT)
     

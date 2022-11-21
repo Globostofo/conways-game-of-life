@@ -6,7 +6,7 @@ class Cell:
     colors: List[pg.Color] = [pg.Color("white"),
                               pg.Color("black")]
 
-    def __init__(self, row:int, col:int, size:int, padding:int) -> None:
+    def __init__(self, row: int, col: int, size: int, padding: int) -> None:
         self.__alive = False
         self.neighbors = []
 
